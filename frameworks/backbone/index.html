@@ -1,51 +1,130 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-  <head>
-    <title>Hacker News</title>
-  </head>
-  <body>
-    <div id="app">
-      <header>
-        <a id="create-user" href="#">Create Account</a></div>
-        <div id="form-display"></div>
-      </header>
-      <script type="text/template" id="new-user">
-        <form>
-          <ul class="errors"></ul>
-          <ul>
-            <li>
-              <label for="user-email">Email</label>
-              <input name="email" id="user-email" />
-            </li>
-            <li>
-            <label for="user-username">Username</label>
-              <input name="username" id="user-username" />
-            </li>
-            <li>
-              <label for="user-password">Password</label>
-              <input name="password" id="user-password" type="password" />
-            </li>
-            <li>
-              <label for="user-password_confirmation">Confirm Password</label>
-              <input name="password_confirmation" id="user-password_confirmation" type="password" />
-            </li>
-            <li>
-              <button type="reset">Cancel</button>
-              <button type="submit">Create</button>
-            </li>
-          </ul>
-        </form>
-      </script>
-    </div>
+    <head>
+        <title>Hacker News</title>
 
-    <script src="/js/vendor/jquery-1.10.1.min.js"></script>
-    <script src="/js/vendor/underscore-min.js"></script>
-    <script src="/js/vendor/backbone-min.js"></script>
-    <script src="/js/app.js"></script>
-    <script>
-      $(function() {
-        new app.AppView();
-      });
-    </script>
-  </body>
+        <!-- Bootstrap -->
+        <link href="bootstrap/bootstrap.css" rel="stylesheet" media="screen">
+        <link href="css/application.css" rel="stylesheet" media="screen">
+    </head>
+    <body>
+        <div id="hackernews-app"></div>
+
+        <!-- NAV TEMPLATE -->
+        <script type="text/template" id="nav-template">
+          <header id="header">
+            <h1>Hacker News</h1>
+            <nav>
+              <a href="#" id="log-in-link">Log In</a>
+              <a href="#" id="sign-up-link">Sign Up</a>
+            </nav>
+          </header>
+          <div id="main"></div>
+        </script>
+
+        <!-- SIGN UP TEMPLATE -->
+        <script type="text/template" id="sign-up-template">
+          <div id="error-container"></div>
+          <form action="#">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email"><br>
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password"><br>
+
+            <label for="password-conf">Password Confirmation:</label>
+            <input type="password" name="password_confirmation" id="password-conf"><br>
+
+            <input type="submit" value="Sign Up" id="sign-up">
+          </form>
+        </script>
+
+        <!-- LOG IN TEMPLATE -->
+        <script type="text/template" id="log-in-template">
+          <div id="error-container"></div>
+          <form action="#">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email"><br>
+
+            <label for="password">Password:</label>
+            <input type="password" name="password" id="password"><br>
+
+            <input type="submit" value="Log In" id="log-in">
+          </form>
+        </script>
+
+        <!-- ARTICLES LIST TEMPLATE -->
+        <script type="text/template" id="articles-list-template">
+          <h1>Articles</h1>
+          <div id="article-list"></div>
+        </script>
+
+        <!-- ACCOUNT SHOW TEMPLATE -->
+        <script type="text/template" id="account-show-template">
+          <div>
+            <p>Email: <%= this.model.get("email") %></p>
+            <p>Username: <%= this.model.get("username") %></p>
+            <p><a href='#' id='edit'>Edit</a></p>
+          </div>
+        </script>
+
+        <!-- ACCOUNT EDIT TEMPLATE -->
+        <script type="text/template" id="account-edit-template">
+          <div id="error-container"></div>
+          <form action="#">
+            <label for="email">Email:</label>
+            <input type="text" name="email" id="email"><br>
+
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username"><br>
+
+            <input type="submit" value="Submit" id="submit">
+          </form>
+        </script>
+
+        <!-- POST NEW TEMPLATE -->
+        <script type="text/template" id="post-new-template">
+          <div id="error-container"></div>
+          <form action="#">
+            <label for="title">Title:</label>
+            <input type="text" name="title" id="title"><br>
+
+            <label for="url">Url:</label>
+            <input type="text" name="url" id="url"><br>
+
+            <input type="submit" value="Submit" id="submit">
+          </form>
+        </script>
+
+        <!-- ARTICLE TEMPLATE -->
+        <script type="text/template" id="article-template">
+            <p><a href="<%= this.model.get('url') %>"><%= this.model.get('title') %></a></p>
+        </script>
+
+        <!-- VENDOR SCRIPTS -->
+        <script src="js/vendor/jquery.js"></script>
+        <script src="js/vendor/underscore.js"></script>
+        <script src="js/vendor/backbone.js"></script>
+        <script src="bootstrap/bootstrap.js"></script>
+
+        <!-- SRC SCRIPTS -->
+        <script src="js/src/models/model.article.js"></script>
+        <script src="js/src/models/model.account.js"></script>
+        <script src="js/src/models/model.session.js"></script>
+        <script src="js/src/models/model.user.js"></script>
+        <script src="js/src/collections/collection.articles.js"></script>
+        <script src="js/src/views/view.article.js"></script>
+        <script src="js/src/views/view.post_new.js"></script>
+        <script src="js/src/views/view.account_edit.js"></script>
+        <script src="js/src/views/view.account_show.js"></script>
+        <script src="js/src/views/view.articles_list.js"></script>
+        <script src="js/src/views/view.log_in.js"></script>
+        <script src="js/src/views/view.sign_up.js"></script>
+        <script src="js/src/views/view.nav.js"></script>
+        <script src="js/src/views/view.app.js"></script>
+        <script src="js/src/application.js"></script>
+    </body>
 </html>
