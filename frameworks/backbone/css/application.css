@@ -1,0 +1,14 @@
+header {
+  margin-top: -10px;
+  background-color: #000000;
+  border-color: #00E000;
+  border-style: solid;
+  border-right: 0px;
+  border-bottom-width: 4px;
+  border-left: 0px;
+}
+
+header h1 {
+  color: #FFFF93;
+  width: 250px;
+}
